@@ -1,0 +1,38 @@
+{
+    "name": "psychological-assessment",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build:win32": "rimraf dist && electron-builder --win --ia32",
+        "build:win64": "rimraf dist && electron-builder --win --x64",
+        "build:all": "rimraf dist && electron-builder --win --ia32 --x64"
+    },
+    "devDependencies": {
+        "electron": "^22.3.27",
+        "electron-builder": "^26.8.1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "volta": {
+        "node": "16.20.0"
+    },
+    "build": {
+        "appId": "com.fenmind.psychological-assessment",
+        "productName": "心理测评",
+        "icon": "build/logo.ico",
+        "nsis": {
+            "artifactName": "一键安装心理测评_${arch}.${ext}",
+            "include": "build/custom-installer.nsi"
+        },
+        "extraFiles": [
+            { "from": "config.json", "to": "config.json" }
+        ],
+        "directories": {
+            "output": "dist"
+        }
+    }
+}
