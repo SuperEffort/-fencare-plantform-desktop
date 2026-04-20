@@ -3,9 +3,8 @@
 !include "nsDialogs.nsh"
 !include "LogicLib.nsh"
 
-Var UrlValue
-
 !ifndef BUILD_UNINSTALLER
+Var UrlValue
 Var Dialog
 Var UrlLabel
 Var UrlText
@@ -41,8 +40,6 @@ FunctionEnd
     Page custom UrlPageCreate UrlPageLeave
 !macroend
 
-!endif
-
 ; 安装完成后，将用户输入的 URL 写入 config.json
 !macro customInstall
     ${If} $UrlValue != ""
@@ -53,3 +50,5 @@ FunctionEnd
         FileClose $0
     ${EndIf}
 !macroend
+
+!endif
