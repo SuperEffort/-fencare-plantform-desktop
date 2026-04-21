@@ -1,10 +1,21 @@
 const { app, BrowserWindow } = require('electron')
-// const path = require('path')
-// const fs = require('fs')
-
+const fs = require('fs')
+const path = require('path')
 // 开发环境下忽略 SSL 证书错误（自签名证书）
 app.commandLine.appendSwitch('ignore-certificate-errors')
 
+function loadUrl() {
+    const defaultUrl = 'https://saas.fenmind.com/s/vJu5pO'
+    // 从安装目录读取用户配置的 URL
+    const urlFile = path.join(path.dirname(app.getPath('exe')), 'url.txt')
+    try {
+        if (fs.existsSync(urlFile)) {
+            const fileUrl = fs.readFileSync(urlFile, 'utf-8').trim()
+            if (fileUrl) return fileUrl
+        }
+    } catch (_) {}
+    return defaultUrl
+}
 
 function createWindow () {
     const win = new BrowserWindow({
@@ -17,20 +28,7 @@ function createWindow () {
         }
     })
 
-    // 打包后 config.json 在 exe 同级目录，开发时在项目根目录
-    // const configPath = app.isPackaged
-    //     ? path.join(path.dirname(app.getPath('exe')), 'config.json')
-    //     : path.join(__dirname, 'config.json')
-
-    let url = 'https://saas.fenmind.com/s/vJu5pO' // 默认值
-    // try {
-    //     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
-    //     if (config.url) url = config.url
-    // } catch (e) {
-    //     console.error('读取配置文件失败:', e)
-    // }
-
-    win.loadURL(url)
+    win.loadURL(loadUrl())
 
     // 伪装高版本浏览器（很多后台会用 UA 判断）
     win.webContents.setUserAgent(

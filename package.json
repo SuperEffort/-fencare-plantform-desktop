@@ -25,7 +25,10 @@
         "productName": "心理测评",
         "icon": "build/logo.ico",
         "nsis": {
-            "artifactName": "一键安装心理测评_${arch}.${ext}"
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "include": "build/custom-installer.nsi",
+            "artifactName": "安装心理测评_${arch}.${ext}"
         },
         "directories": {
             "output": "dist"
