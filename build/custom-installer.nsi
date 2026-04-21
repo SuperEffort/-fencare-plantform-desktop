@@ -1,10 +1,10 @@
 ; 自定义 NSIS 安装页面 - 让用户输入测评系统 URL
 
+; 所有安装器专用代码放在 BUILD_UNINSTALLER 条件内，避免卸载程序编译时报错
+!ifndef BUILD_UNINSTALLER
+
 Var UrlInput
 Var UrlValue
-
-; 函数定义放在 BUILD_UNINSTALLER 条件外，避免卸载程序编译时报 "not referenced" 错误
-!ifndef BUILD_UNINSTALLER
 
 Function UrlPage
     nsDialogs::Create 1018
