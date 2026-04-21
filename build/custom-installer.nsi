@@ -4,6 +4,9 @@ Var UrlDialog
 Var UrlInput
 Var UrlValue
 
+; 函数定义放在 BUILD_UNINSTALLER 条件外，避免卸载程序编译时报 "not referenced" 错误
+!ifndef BUILD_UNINSTALLER
+
 Function UrlPage
     nsDialogs::Create 1018
     Pop $UrlDialog
@@ -21,13 +24,11 @@ Function UrlPage
 FunctionEnd
 
 Function UrlPageLeave
-    nsDialogs::GetUserData $UrlInput
-    Pop $UrlValue
-    ; 备用：通过窗口消息获取文本
-    StrCmp $UrlValue "" 0 +3
+    ; 通过窗口消息获取文本 (WM_GETTEXT = 0x000D)
     SendMessage $UrlInput 0x000D 0 "s" $UrlValue
-    StrCpy $UrlValue $UrlValue
 FunctionEnd
+
+!endif
 
 !macro customPageAfterChangeDir
     Page custom UrlPage UrlPageLeave
