@@ -24,8 +24,8 @@ Function UrlPage
 FunctionEnd
 
 Function UrlPageLeave
-    ; 通过 GetWindowText 获取输入内容
-    System::Call "user32::GetWindowText(i $UrlInput, t .r0, i 1024)"
+    ; 通过 GetWindowText 获取输入内容（.s 输出到栈，Pop 取出）
+    System::Call "user32::GetWindowText(i $UrlInput, t .s, i 1024)"
     Pop $UrlValue
 FunctionEnd
 
@@ -36,9 +36,10 @@ FunctionEnd
 !macroend
 
 !macro customInstall
-    ; 将用户输入的 URL 写入配置文件
-    StrCmp $UrlValue "" 0 +3
+    ; 如果为空则使用默认值
+    StrCmp $UrlValue "" 0 +2
     StrCpy $UrlValue "https://saas.fenmind.com/s/vJu5pO"
+    ; 写入配置文件
     FileOpen $0 "$INSTDIR\url.txt" w
     FileWrite $0 "$UrlValue"
     FileClose $0
