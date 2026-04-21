@@ -5,8 +5,6 @@ Var UrlInput
 Var UrlValue
 
 Function UrlPage
-    !insertmacro MUI_HEADER_TEXT "配置测评系统地址" "请输入心理测评系统的访问地址"
-
     nsDialogs::Create 1018
     Pop $UrlDialog
 
