@@ -1,6 +1,5 @@
 ; 自定义 NSIS 安装页面 - 让用户输入测评系统 URL
 
-Var UrlDialog
 Var UrlInput
 Var UrlValue
 
@@ -9,9 +8,9 @@ Var UrlValue
 
 Function UrlPage
     nsDialogs::Create 1018
-    Pop $UrlDialog
+    Pop $0
 
-    StrCmp $UrlDialog "error" 0 +2
+    StrCmp $0 "error" 0 +2
     Abort
 
     nsDialogs::CreateControl "STATIC" 0x40000000|0x10000000 0 0 0 100% 12u "请输入心理测评系统URL地址:"
