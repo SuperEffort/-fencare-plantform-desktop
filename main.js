@@ -5,7 +5,9 @@ const path = require('path')
 app.commandLine.appendSwitch('ignore-certificate-errors')
 
 function loadUrl() {
-    const defaultUrl = 'https://saas.fenmind.com/s/vJu5pO'
+    // const defaultUrl = 'https://saas.fenmind.com/s/vJu5pO'
+    const defaultUrl = 'https://saas.fenmind.com/group/surveyList?evalId=IYwa8mtVDEousSWjzA2CN3rv'
+
     // 从安装目录读取用户配置的 URL
     const urlFile = path.join(path.dirname(app.getPath('exe')), 'url.txt')
     try {
